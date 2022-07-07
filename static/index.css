@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+    padding:0;
+}
+
+
+#container{
+    display: grid;
+    margin: 0 auto;
+    width: 918px;
+    height: 918px;
+}
