@@ -6,7 +6,48 @@ body{
 
 #container{
     display: grid;
-    margin: 300px auto;
-    width: 400px;
-    height: 400px;
+    margin: 100px auto;
+    width: 600px;
+    height: 600px;
+    border: solid black 0.5px; border-left-style: none; border-bottom-style:none;
 }
+
+
+.settingsContainer{
+    margin: 70px auto 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sliderContainer{
+    width: 50%;
+    
+}
+
+
+.slider {
+    -webkit-appearance: none; /*override any css property*/
+    appearance: none;
+    width: 700px;
+    margin: 10px auto;
+    display: inline-block;
+    -webkit-transition: 0.2s;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    background: rgba(209, 208, 208, 0.305);
+}
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+
+
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #f23400; /*  background */
+    cursor: pointer; /* Cursor on hover */
+  }
