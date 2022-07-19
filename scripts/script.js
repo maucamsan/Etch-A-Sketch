@@ -8,6 +8,131 @@ let cssTextGrid = `grid-template-columns:repeat(${sizeEvent.value}, 1fr [col-sta
 
 let inputSlider = document.querySelector('.slider')
 
+let nodeColor = document.querySelector('#colorSelector');
+let newColorSelected = nodeColor.value;
+
+const toggleBackgroundButton = document.querySelector("#toggleBackground");
+const toggleBordersButton = document.querySelector("#toggleBorders");
+let backgroundOn = true;
+let bordersOn = true;
+
+toggleBackgroundButton.addEventListener("click", function(){
+    if (backgroundOn)
+    {
+        backgroundOn = false;
+        ToggleBackground();
+    }
+    else{
+        backgroundOn = true;
+        ToggleBackground();
+    }
+  
+})
+toggleBordersButton.addEventListener("click", function(){
+    if (bordersOn){
+        ToggleBorders();
+        bordersOn = false;
+    }
+    else{
+        ToggleBorders();
+        bordersOn = true;
+    }
+    
+})
+
+function ToggleBorders(){
+    let ndiv = Array.prototype.slice.call(container.children);
+    if (bordersOn){
+        ndiv.forEach((n)=>{
+            n.style.cssText += 'border: none';   
+        })
+    }
+    else{
+        ndiv.forEach((n) =>{
+            container.style.border = 'solid 0.1px rgba(0, 0, 0, .2)'
+            n.style.backgroundColor = getComputedStyle(n).backgroundColor;
+            n.style.cssText += 'border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none z-index:3';
+            
+        })
+    }
+}
+
+function ToggleBackground(){
+    let ndiv = Array.prototype.slice.call(container.children);
+    let currSize = parseInt(size.value)
+    let cont = 0;
+    if (backgroundOn){
+        if (currSize % 2 == 0)
+        {
+            for (let i = 0 ; i < ndiv.length; i ++){
+                if (i % currSize == 0){
+                    cont += 1;
+                }
+                if (cont % 2 == 0){
+                    if (i % 2 != 0 ){
+                        
+                    if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                    {
+                        
+                        ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                        ndiv[i].setAttribute('class', 'changeColor');
+                        
+                    }
+                    }
+                }
+                else {
+                    if (i % 2 == 0 ){
+                        
+                        if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                        {
+                            
+                            ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                            ndiv[i].setAttribute('class', 'changeColor');
+                            
+                        }
+                    }
+                }
+            
+            }
+            
+        }
+        else {
+            for (let i = 0 ; i < ndiv.length; i ++){
+                
+                
+                if (i % 2 != 0 ){
+                    
+                    if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                    {
+                        
+                        ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                        ndiv[i].setAttribute('class', 'changeColor');
+                        
+                    }
+                }
+                
+            }
+        }   
+    }
+    else{    
+        
+        ndiv.forEach((n) =>{
+            
+            
+            if (getComputedStyle(n).backgroundColor == "rgba(0, 0, 0, 0.1)" || getComputedStyle(n).backgroundColor == "rgba(0, 0, 0, 0)")
+            {
+                
+                n.style.backgroundColor = "rgba(0, 0, 0, 0)"
+                n.setAttribute('class', 'changeColor');
+                
+            }
+            
+        })    
+    
+    }
+
+}
+
 
 function CreateGrid(size=16){
     var child = container.lastElementChild; 
@@ -17,27 +142,45 @@ function CreateGrid(size=16){
     }
     
 
-    for (let i = 0; i < size; i++){
-        for (let j = 0; j < size; j++){
-            let ndiv = document.createElement('div');
-            // let t = i/size;
-            container.append(ndiv);
-            // ndiv.style.cssText = `grid-column-start: column-start ${j}; grid-row-start: row-start ${i + j};`;
-            //ndiv.innerText = 'x';
-            //ndiv.style.cssText = `width:${t}`;
-            //ndiv.style.cssText = ${width}`;
-            ndiv.style.cssText = 'display: inline-block; border: solid black 0.5px; border-top-style:none; border-right-style:none' ;
+        for (let i = 0; i < size; i++){
+            for (let j = 0; j < size; j++){
+
+                if ((j % 2 == 0 && i % 2 == 0) || (j % 2 != 0 && i % 2 != 0))
+                {
+                    let ndiv = document.createElement('div');
+                    // let t = i/size;
+                    container.append(ndiv);
+                    
+                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none';
+                    ndiv.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                    ndiv.setAttribute('class', 'changeColor');
+                    
+                }
+                
+                else 
+                {
+                    
+                    let ndiv = document.createElement('div');
+                    // let t = i/size;
+                    container.append(ndiv);
+                    
+                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none';
+                    ndiv.setAttribute('class', 'changeColor');
+                }
             
+            }
         }
-    }  
-    // let last = container.lastElementChild;
-    // if (last){
-    //     last.dispatchEvent(borderEvent);
-    // }
+
     
+    GetNewNodes();
+ 
 }
 
+nodeColor.addEventListener("change", (event) =>{
+    newColorSelected = event.target.value;
+    //GetNewNodes();
 
+})
 
 
 CreateGrid();
@@ -45,7 +188,7 @@ CreateGrid();
 
 sizeEvent.addEventListener("input", e => {
     let size = sizeEvent.value; 
-    if (size % 2 != 0 || size > 128 || size == 0){
+    if (size > 100 || size == 0){
         sizeEvent.setAttribute("value", "16");
         size = 16;
     }
@@ -59,7 +202,33 @@ sizeEvent.addEventListener("input", e => {
 inputSlider.addEventListener('input', function(){
     inputSlider.style.cssText = `background: ${inputSlider.value}`;
     console.log(inputSlider.value)
-})
-// Add grid to container
+});
+function GetNewNodes(){
+    (container.childNodes).forEach(cell => {
+        cell.addEventListener('mousedown', () =>{ // mouseover
+            
+            cell.style.backgroundColor = newColorSelected;
+            if (bordersOn){
+                cell.style.border = "solid 0.1px rgba(255, 255, 255, .5)";
+            }
+            cell.style.borderTopStyle = "none";
+            cell.style.borderRightStyle = "none";
+            
+        })
+    });
+   
+}
+    // Add grid to container
 container.style.cssText = cssTextGrid;
 
+// TODO:
+
+// Implement color change on clickdrag
+// Background color
+// Box shade on grid
+// Toggle default background grid
+// Toggle grid borders
+// Connect slider with input text and grid size
+// Organize elements 
+// Credits (my discord)
+// Fix border after toggling it and colouring again
