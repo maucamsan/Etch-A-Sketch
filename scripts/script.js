@@ -237,15 +237,13 @@ function GetNewNodes(){
 container.style.cssText = cssTextGrid;
 
 // TODO:
-// On coloured cells, change the border color implementation
+
 // Add reset button
 // Fix outer borders
-// Implement color change on clickdrag
-// Background color
+
 // Box shade on grid
-// Toggle default background grid
-// Toggle grid borders
-// Connect slider with input text and grid size
+
+
 // Organize elements 
 // Credits (my discord)
 // Fix border after toggling it and colouring again
