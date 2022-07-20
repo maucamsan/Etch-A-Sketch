@@ -49,9 +49,13 @@ function ToggleBorders(){
     }
     else{
         ndiv.forEach((n) =>{
-            container.style.border = 'solid 0.1px rgba(0, 0, 0, .2)'
-            n.style.backgroundColor = getComputedStyle(n).backgroundColor;
-            n.style.cssText += 'border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none z-index:3';
+            // if (getComputedStyle(n).backgroundColor != 'rgba(255, 255, 255, 0)')
+            // {
+            //     n.style.cssText += 'border: solid 0.1px rgba(210, 204, 196,1);'
+            // }
+            container.style.border = 'solid 0.1px rgba(210, 204, 196,1); '
+            
+            n.style.cssText += 'border: solid 0.1px rgba(210, 204, 196, 1);border-top-style: none; border-right-style:none;'
             
         })
     }
@@ -71,18 +75,16 @@ function ToggleBackground(){
                 if (cont % 2 == 0){
                     if (i % 2 != 0 ){
                         
-                    if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
-                    {
-                        
-                        ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
-                        ndiv[i].setAttribute('class', 'changeColor');
-                        
-                    }
+                        if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                        {
+                            ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                            ndiv[i].setAttribute('class', 'changeColor');
+                            
+                        }
                     }
                 }
                 else {
                     if (i % 2 == 0 ){
-                        
                         if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
                         {
                             
@@ -92,9 +94,7 @@ function ToggleBackground(){
                         }
                     }
                 }
-            
             }
-            
         }
         else {
             for (let i = 0 ; i < ndiv.length; i ++){
@@ -140,8 +140,6 @@ function CreateGrid(size=16){
         container.removeChild(child);
         child = container.lastElementChild;
     }
-    
-
         for (let i = 0; i < size; i++){
             for (let j = 0; j < size; j++){
 
@@ -151,7 +149,7 @@ function CreateGrid(size=16){
                     // let t = i/size;
                     container.append(ndiv);
                     
-                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none';
+                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(210, 204, 196, 1); ';
                     ndiv.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
                     ndiv.setAttribute('class', 'changeColor');
                     
@@ -164,7 +162,7 @@ function CreateGrid(size=16){
                     // let t = i/size;
                     container.append(ndiv);
                     
-                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(0, 0, 0, .2); border-top-style:none; border-right-style:none';
+                    ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(210, 204, 196, 1); ';
                     ndiv.setAttribute('class', 'changeColor');
                 }
             
@@ -200,20 +198,37 @@ sizeEvent.addEventListener("input", e => {
 
 
 inputSlider.addEventListener('input', function(){
-    inputSlider.style.cssText = `background: ${inputSlider.value}`;
-    console.log(inputSlider.value)
+    sizeEvent.value = inputSlider.value;
+    let size = sizeEvent.value; 
+    cssTextGrid = `grid-template-columns:repeat(${size}, 1fr [col-start]);\n grid-template-rows:repeat(${size}, 1fr [row-start])`;
+    container.style.cssText = cssTextGrid;
+    CreateGrid(size);
 });
+let mouseClickDown = false;
 function GetNewNodes(){
     (container.childNodes).forEach(cell => {
-        cell.addEventListener('mousedown', () =>{ // mouseover
-            
+        cell.addEventListener('mousedown', () =>{ 
+            // mouseover
+            mouseClickDown = true;    
             cell.style.backgroundColor = newColorSelected;
             if (bordersOn){
-                cell.style.border = "solid 0.1px rgba(255, 255, 255, .5)";
+                cell.style.border = "solid 0.1px rgba(210, 204, 196,1)";
             }
             cell.style.borderTopStyle = "none";
-            cell.style.borderRightStyle = "none";
-            
+            cell.style.borderRightStyle = "none";        
+        })
+        cell.addEventListener('mouseup', ()=>{mouseClickDown = false})
+        cell.addEventListener('dblclick', () => {mouseClickDown = false})
+        cell.addEventListener('mousemove', () => {
+            if (mouseClickDown)
+            {
+                cell.style.backgroundColor = newColorSelected;
+                if (bordersOn){
+                    cell.style.border = "solid 0.1px rgba(210, 204, 196,1)";
+                }
+                cell.style.borderTopStyle = "none";
+                cell.style.borderRightStyle = "none";
+            }
         })
     });
    
@@ -222,7 +237,9 @@ function GetNewNodes(){
 container.style.cssText = cssTextGrid;
 
 // TODO:
-
+// On coloured cells, change the border color implementation
+// Add reset button
+// Fix outer borders
 // Implement color change on clickdrag
 // Background color
 // Box shade on grid

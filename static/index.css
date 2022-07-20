@@ -1,10 +1,13 @@
 body{
     margin: 0;
     padding:0;
+    background: rgb(2,0,36);
+    background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(9,119,76,1) 0%, rgba(33,142,154,0.8505602924763656) 100%, rgba(0,212,255,1) 100%); 
 }
 
 
 #container{
+    background-color: beige;
     display: grid;
     margin: 100px auto;
     width: 600px;
@@ -14,9 +17,11 @@ body{
 
 
 .settingsContainer{
-    margin: 70px auto 0px;
+    margin: 70px auto -50px;
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2em;
     justify-content: space-evenly;
     align-items: center;
 }
