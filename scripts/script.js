@@ -139,9 +139,9 @@ function ToggleBackground(){
                 if (cont % 2 == 0){
                     if (i % 2 != 0 ){
                         
-                        if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                        if (getComputedStyle( ndiv[i]).backgroundColor === "rgb(255, 255, 255)")
                         {
-                            ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                            ndiv[i].style.backgroundColor = "rgb(220, 220, 220)"
                             ndiv[i].setAttribute('class', 'changeColor');
                             
                         }
@@ -149,10 +149,10 @@ function ToggleBackground(){
                 }
                 else {
                     if (i % 2 == 0 ){
-                        if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                        if (getComputedStyle( ndiv[i]).backgroundColor === "rgb(255, 255, 255)")
                         {
                             
-                            ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                            ndiv[i].style.backgroundColor = "rgb(220, 220, 220)"
                             ndiv[i].setAttribute('class', 'changeColor');
                             
                         }
@@ -166,10 +166,10 @@ function ToggleBackground(){
                 
                 if (i % 2 != 0 ){
                     
-                    if (getComputedStyle( ndiv[i]).backgroundColor == "rgba(0, 0, 0, 0)")
+                    if (getComputedStyle( ndiv[i]).backgroundColor === "rgb(255, 255, 255)")
                     {
                         
-                        ndiv[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                        ndiv[i].style.backgroundColor = "rgb(220, 220, 220)"
                         ndiv[i].setAttribute('class', 'changeColor');
                         
                     }
@@ -183,10 +183,10 @@ function ToggleBackground(){
         ndiv.forEach((n) =>{
             
             
-            if (getComputedStyle(n).backgroundColor == "rgba(0, 0, 0, 0.1)" || getComputedStyle(n).backgroundColor == "rgba(0, 0, 0, 0)")
+            if (getComputedStyle(n).backgroundColor === "rgb(220, 220, 220)" || getComputedStyle(n).backgroundColor === "rgba(0, 0, 0, 0)")
             {
                 
-                n.style.backgroundColor = "rgba(0, 0, 0, 0)"
+                n.style.backgroundColor = "rgb(255, 255, 255)"
                 n.setAttribute('class', 'changeColor');
                 
             }
@@ -225,7 +225,7 @@ function CreateGrid(size=16){
                     container.append(ndiv);
                     
                     ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(210, 204, 196, 1); ';
-                    ndiv.style.backgroundColor = "rgba(220, 220, 220, 1)"
+                    ndiv.style.backgroundColor = "rgb(220, 220, 220)"
                     ndiv.setAttribute('class', 'changeColor');
                     
                 }
