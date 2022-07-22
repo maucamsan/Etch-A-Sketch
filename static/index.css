@@ -2,22 +2,86 @@ body{
     margin: 0;
     padding:0;
     background: rgb(2,0,36);
-    background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(9,119,76,1) 0%, rgba(33,142,154,0.8505602924763656) 100%, rgba(0,212,255,1) 100%); 
+    background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgb(37, 104, 112) 0%,rgb(49, 64, 68) 100%,  rgba(0,212,255,1) 100%); 
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
+button{
+    background:rgb(28, 161, 130);
+    color:#fff;
+    border:none;
+    width: 100px;
+    height: 50px;
+    padding:0;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    
+}
+button:hover{
+    background:#fff;
+    color:#266556;
+    width: 180px;
+  }
+/* button::before, button::after{
+    content:"";
+    display: inline-block;
+    position:absolute;
+    top: 0%;
+    right:0%;
+    height: 1px;
+    width: 0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+}
+button:after{
+    right:inherit;
+    top:inherit;
+    left:0%;
+    bottom:0%;
+  } */
+  /* button:hover,button:hover{
+    width:100%;
+    transition:800ms ease all;
+  } */
+h1{
+    color:orange;
+}
+a{
+    text-decoration: none;
+    color: white;
 
+}
+footer{
+    
+    color: white;
+    font-size: 2em;
+}
 #container{
-    background-color: beige;
+    box-shadow: 7px 7px 7px 1px rgb(34, 34, 34),
+                -4px -4px 10px rgb(85, 83, 83);
+    background-color: rgb(255, 255, 255);
     display: grid;
-    margin: 100px auto;
-    width: 600px;
-    height: 600px;
+    margin: 70px auto 30px;
+    width: 500px;
+    height: 500px;
     border: solid rgba(0, 0, 0, .2) 0.1px; 
 }
 
+.buttonContainer{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+
 
 .settingsContainer{
-    margin: 70px auto -50px;
+    margin: 20px auto -50px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -26,16 +90,25 @@ body{
     align-items: center;
 }
 
-.sliderContainer{
-    width: 50%;
-    
+.colorPicker > input{
+    width: 80px;
+    height: 80px;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
+input[type="text"]{
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    font-size: 1.2em;
+}
 
 .slider {
     -webkit-appearance: none; /*override any css property*/
     appearance: none;
-    width: 700px;
+    width: 200px;
     margin: 10px auto;
     display: inline-block;
     -webkit-transition: 0.2s;
@@ -47,14 +120,21 @@ body{
 .slider:hover {
     opacity: 1; /* Fully shown on mouse-over */
   }
+.inputsContainer{
+    display:flex;
+    flex-direction: row;
+    gap: 30px;
+}
 
 
-
-.slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #f23400; /*  background */
-    cursor: pointer; /* Cursor on hover */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: rgb(240, 132, 31);
+    
   }
 
 

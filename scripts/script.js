@@ -13,18 +13,82 @@ let newColorSelected = nodeColor.value;
 
 const toggleBackgroundButton = document.querySelector("#toggleBackground");
 const toggleBordersButton = document.querySelector("#toggleBorders");
+const resetButton = document.querySelector("#resetButton");
+const rainbowButton = document.querySelector("#rainbowButton");
+
+const shadeButton = document.querySelector("#shadeButton");
+const lightButton = document.querySelector("#lightButton");
+
+
 let backgroundOn = true;
 let bordersOn = true;
+let rainbowOn = false;
+let shadeOn = false;
+let lightOn = false;
+
+shadeButton.addEventListener("click", function(){
+    shadeOn = !shadeOn;
+    if (shadeOn)
+    {
+        rainbowOn = false;
+        lightOn = false;
+        shadeButton.style.backgroundColor = "rgba(128, 128, 128, 1)";
+        rainbowButton.style.backgroundColor = "rgb(28, 161, 130)";
+        lightButton.style.backgroundColor = "rgb(28, 161, 130)";
+    }
+    else
+    {
+        shadeButton.style.backgroundColor = "rgb(28, 161, 130)";
+        shadeButton.style.color = "white";
+
+    }
+})
+lightButton.addEventListener("click", function(){
+    lightOn = !lightOn;
+    if (lightOn)
+    {
+        rainbowOn = false;
+        shadeOn = false;
+        shadeButton.style.backgroundColor = "rgb(28, 161, 130)";
+        rainbowButton.style.backgroundColor = "rgb(28, 161, 130)";
+        lightButton.style.backgroundColor = "rgba(128, 128, 128, 1)";
+    }
+    else
+    {
+        lightButton.style.backgroundColor = "rgb(28, 161, 130)";
+        lightButton.style.color = "white";
+        
+    }
+})
+
+rainbowButton.addEventListener("click", function(){
+    rainbowOn = !rainbowOn;
+    if (rainbowOn)
+    {
+        shadeOn = false;
+        lightOn = false;
+        rainbowButton.style.backgroundColor = "rgba(128, 128, 128, 1)";
+        shadeButton.style.backgroundColor = "rgb(28, 161, 130)";
+        lightButton.style.backgroundColor = "rgb(28, 161, 130)";
+    }
+    else{
+        rainbowButton.style.backgroundColor = "rgb(28, 161, 130)";
+        rainbowButton.style.color = "white";
+
+    }
+});
+
+
 
 toggleBackgroundButton.addEventListener("click", function(){
     if (backgroundOn)
     {
-        backgroundOn = false;
         ToggleBackground();
+        backgroundOn = false;
     }
     else{
-        backgroundOn = true;
         ToggleBackground();
+        backgroundOn = true;
     }
   
 })
@@ -65,7 +129,7 @@ function ToggleBackground(){
     let ndiv = Array.prototype.slice.call(container.children);
     let currSize = parseInt(size.value)
     let cont = 0;
-    if (backgroundOn){
+    if (!backgroundOn){
         if (currSize % 2 == 0)
         {
             for (let i = 0 ; i < ndiv.length; i ++){
@@ -133,6 +197,17 @@ function ToggleBackground(){
 
 }
 
+resetButton.addEventListener("click", function(){
+    backgroundOn = true;
+    bordersOn = true;
+    rainbowOn = false;
+    shadeOn = false;
+    lightOn = false;
+    rainbowButton.style.backgroundColor = "rgb(28, 161, 130)";
+    shadeButton.style.backgroundColor = "rgb(28, 161, 130)";
+    lightButton.style.backgroundColor = "rgb(28, 161, 130)";
+    CreateGrid(sizeEvent.value);
+})
 
 function CreateGrid(size=16){
     var child = container.lastElementChild; 
@@ -150,7 +225,7 @@ function CreateGrid(size=16){
                     container.append(ndiv);
                     
                     ndiv.style.cssText = 'display: inline-block; border: solid 0.1px rgba(210, 204, 196, 1); ';
-                    ndiv.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
+                    ndiv.style.backgroundColor = "rgba(220, 220, 220, 1)"
                     ndiv.setAttribute('class', 'changeColor');
                     
                 }
@@ -176,8 +251,12 @@ function CreateGrid(size=16){
 
 nodeColor.addEventListener("change", (event) =>{
     newColorSelected = event.target.value;
-    //GetNewNodes();
-
+    rainbowOn = false;
+    shadeOn = false;
+    lightOn = false;
+    rainbowButton.style.backgroundColor = "rgb(28, 161, 130)";
+    shadeButton.style.backgroundColor = "rgb(28, 161, 130)";
+    lightButton.style.backgroundColor = "rgb(28, 161, 130)";
 })
 
 
@@ -209,8 +288,25 @@ function GetNewNodes(){
     (container.childNodes).forEach(cell => {
         cell.addEventListener('mousedown', () =>{ 
             // mouseover
+            let colorToShade = cell.style.backgroundColor.match(/\d+/g);
+            if (colorToShade === null)
+            {
+                colorToShade = ["255", "255", "255", "1"]
+            }
             mouseClickDown = true;    
-            cell.style.backgroundColor = newColorSelected;
+            if (rainbowOn){
+                cell.style.backgroundColor = `rgba(${ (Math.random() * 255)}, ${ (Math.random() * 255)}, ${ (Math.random() * 255)}, 1)`;
+            }
+            else if (shadeOn){
+                cell.style.backgroundColor = `rgba(${parseInt(colorToShade[0]) - 4}, ${parseInt(colorToShade[1]) - 4},${parseInt(colorToShade[2]) - 4},1)`;
+                
+            }
+            else if (lightOn){
+                cell.style.backgroundColor = `rgba(${parseInt(colorToShade[0]) + 4}, ${parseInt(colorToShade[1]) + 4},${parseInt(colorToShade[2]) + 4}, 1)`;
+            }
+            else{
+                cell.style.backgroundColor = newColorSelected;
+            }
             if (bordersOn){
                 cell.style.border = "solid 0.1px rgba(210, 204, 196,1)";
             }
@@ -222,7 +318,26 @@ function GetNewNodes(){
         cell.addEventListener('mousemove', () => {
             if (mouseClickDown)
             {
-                cell.style.backgroundColor = newColorSelected;
+                let colorToShade = cell.style.backgroundColor.match(/\d+/g);
+                if (colorToShade === null)
+                {
+                    colorToShade = ["255", "255", "255", "1"]
+                }
+                
+                if (rainbowOn){
+                    
+                    cell.style.backgroundColor = `rgba(${ (Math.random() * 255)}, ${ (Math.random() * 255)}, ${ (Math.random() * 255)}, 1)`;
+                }
+                else if (shadeOn){
+                    cell.style.backgroundColor = `rgba(${parseInt(colorToShade[0]) - 4}, ${parseInt(colorToShade[1]) - 4},${parseInt(colorToShade[2]) - 4},1)`;
+                    
+                }
+                else if (lightOn){
+                    cell.style.backgroundColor = `rgba(${parseInt(colorToShade[0]) +  4}, ${parseInt(colorToShade[1]) +  4},${parseInt(colorToShade[2]) +  4}, 1)`;
+                }
+                else{
+                    cell.style.backgroundColor = newColorSelected;
+                }
                 if (bordersOn){
                     cell.style.border = "solid 0.1px rgba(210, 204, 196,1)";
                 }
@@ -238,12 +353,5 @@ container.style.cssText = cssTextGrid;
 
 // TODO:
 
-// Add reset button
-// Fix outer borders
-
-// Box shade on grid
-
-
-// Organize elements 
-// Credits (my discord)
-// Fix border after toggling it and colouring again
+    // Refactor
+    // Add Styles to the buttons
