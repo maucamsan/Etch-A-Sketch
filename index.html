@@ -6,8 +6,38 @@
     <title>Document</title>
     <link rel="stylesheet" href="./static/index.css">
     <script src="./scripts/script.js" defer></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>                  
 </head>
 <body>
-    Hello, world!
+    <h1>Etch-A-Sketch</h1>
+    <div class="settingsContainer">
+
+        <div class="sliderContainer">
+            <input type="range" min="0" max="64" value="16" class="slider" id="range">
+        </div>
+        <div class="inputsContainer">
+            
+            <div class="colorPicker">
+                <input type="color" id="colorSelector">
+            </div>
+            <div>
+                <input type="text" value="16" id="size" >
+            </div>
+        </div>
+        <div class="buttonContainer">
+
+            <button id="toggleBackground">Toggle Background</button>
+            <button id="toggleBorders">Toggle Inner borders</button>
+            <button id="rainbowButton">Rainbow</button>
+            <button id="resetButton">Reset</button>
+            <button id="shadeButton">Shade</button>
+            <button id="lightButton">Light</button>
+            
+        </div>
+    </div>
+    <div id="container" class="cellColor"></div>
+    
+    <footer>By <a href="https://github.com/maucamsan/Etch-A-Sketch" >maucamsan <i class='fa fa-github'></i> </a></footer>
+  
 </body>
 </html>
